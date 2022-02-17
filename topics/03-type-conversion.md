@@ -90,3 +90,21 @@ func main() {
 cannot convert y (type string) to type int  
 ```
 
+Şöyle harici durumlar da olabilir..
+
+```
+func main() {
+	number := 101
+	string1 := string(number)
+
+	fmt.Printf("%v %T\n", number, number)
+	fmt.Printf("%v %T\n", string1, string1)
+}
+```
+
+Çıktı:
+
+```
+101 int
+e string
+```
