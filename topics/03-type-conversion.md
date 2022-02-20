@@ -138,7 +138,7 @@ func main() {
 
 String verileri diğer değişken tiplerine dönüştürmek için;
 
-- ParseInt/ParseUint > string olarak gelen veriyi int/uint tipine dönüştürür. 3 parametre alır (s string, base int, bitSize int). "s" string olarak gönderdiğimiz veri, "base" sayı tabanını temsil eder ve "bitSize" hangi bit değerinde dönüştürme istiyorsak onu belirleriz. Dönüş olarak (int64/uint64, error) döndürür.
+- ParseInt/ParseUint > string olarak gelen veriyi int/uint tipine dönüştürür. 3 parametre alır (s string, base int, bitSize int). Dönüş olarak (int64/uint64, error) döndürür.
 
 **Note:** 
 - **s** string olarak gönderdiğimiz veriyi, 
