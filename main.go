@@ -3,13 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	var number int = 105
+	var apple int = 2
+	myslc := []int{1,2,3}
 	
-	fmt.Printf("%b \n", number)
-	fmt.Printf("%c \n", number)
-	fmt.Printf("%d \n", number)
-	fmt.Printf("%o \n", number)
-	fmt.Printf("%x \n", number)
-	fmt.Printf("%X \n", number)
-	fmt.Printf("%U \n", number)
+	fmt.Printf("%v \n", myslc)
+	fmt.Printf("%f \n", apple)
+
 }

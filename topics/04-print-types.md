@@ -117,3 +117,21 @@ i
 69     
 U+0069 
 ```
+
+**Slice**
+- **%p**  : (base 16)Sıfırıncı elemanın adresini onaltılık tabanda gösterir.
+
+```
+func main() {
+	myslc := []int{1,2,3}
+	
+	fmt.Printf("%v \n", myslc)
+	fmt.Printf("%p \n", myslc)
+}
+```
+
+Çıktı:
+```
+[1 2 3] 
+0xc000014150 
+```
