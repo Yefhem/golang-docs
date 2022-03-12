@@ -1,17 +1,15 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-)
+import "fmt"
 
 func main() {
-	// i := strconv.FormatInt(-13, 10)
-	// fmt.Printf("%v %T\n", i, i)
-
-	// u := strconv.FormatUint(88, 10)
-	// fmt.Printf("%v %T\n", u, u)
-
-	b := strconv.FormatBool(true)
-	fmt.Printf("%v %T\n", b, b)
+	var number int = 105
+	
+	fmt.Printf("%b \n", number)
+	fmt.Printf("%c \n", number)
+	fmt.Printf("%d \n", number)
+	fmt.Printf("%o \n", number)
+	fmt.Printf("%x \n", number)
+	fmt.Printf("%X \n", number)
+	fmt.Printf("%U \n", number)
 }
