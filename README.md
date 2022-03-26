@@ -5,3 +5,4 @@
 - [Scope Kavramı](./topics/02-scope-kavramı.md)
 - [Tip Dönüşümü](./topics/03-type-conversion.md)
 - [Print Tipleri](./topics/04-print-types.md)
+- [Sabitler](./topics/05-Constants.md)
