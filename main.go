@@ -1,24 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	var x uint = 50 // 00110010
-	var y uint = 30 // 00011110
-	var z uint
+	a := 3
 
-	z = x & y
-	fmt.Printf("x & y = %d binary = %b\n", z, z) // 00010010
-
-	z = x | y
-	fmt.Printf("x | y = %d binary = %b\n", z, z) // 00111110
-
-	z = x ^ y
-	fmt.Printf("x ^ y = %d binary = %b\n", z, z) // 00101100
-
-	z = x << 1
-	fmt.Printf("x << y = %d binary = %b\n", z, z) // 01100100
-
-	z = x >> 1
-	fmt.Printf("x >> y = %d binary = %b\n", z, z) // 00011001
+	switch a {
+	case 1:
+		fmt.Println("a = 1")
+	case 2:
+		fmt.Println("a = 2")
+	case 3:
+		fmt.Println("a = 3")
+	case 4:
+		fmt.Println("a = 4")
+	default:
+		fmt.Println("a herhangi bir değer olabilir.")
+	}
 }
