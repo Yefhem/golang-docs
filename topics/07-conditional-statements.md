@@ -136,3 +136,88 @@ func main() {
 ```
 a = 3
 ```
+
+### Multiple Cases
+
+```
+func main() {
+	a := 11
+
+	switch a {
+	case 1, 2, 3:
+		fmt.Println("a = 1, 2, 3")
+	case 4, 5, 6:
+		fmt.Println("a = 4, 5, 6")
+	case 7, 8, 9:
+		fmt.Println("a = 7, 8, 9")
+	case 10, 11, 12:
+		fmt.Println("a = 10, 11, 12")
+	default:
+		fmt.Println("a herhangi bir değer olabilir.")
+	}
+}
+```
+
+Çıktı:
+```
+a = 10, 11, 12
+```
+
+### Fallthrough Case
+
+```
+func main() {
+	a := 39
+
+	switch {
+	case a < 29:
+		fmt.Println("a is less than 29")
+		fallthrough
+	case a < 59:
+		fmt.Println("a is less than 59")
+		fallthrough
+	case a < 79:
+		fmt.Println("a is less than 79")
+	}
+}
+```
+
+Çıktı:
+```
+a is less than 59
+a is less than 79
+```
+
+**Not:** "fallthrough" anahtar kelimesini case içerisinde kullandığımızda şu anlama gelir: Eğer fallthrough anahtar kelimesinin bulunduğu case geçerli bile olsa bir sonraki case'i kontrol et demektir. Yukarıdaki örneği inceleyecek olursak eğer fallthrough kullanmamış olsaydık çıktı sadece `a is less than 59` olacaktı.
+
+## Yapı İçerisinde Değişken Tanımlama
+
+Eğer istersek if...else statement veya switch...case statement yapısı içerisinde değişken tanımlayıp kullanabiliriz. Bunlarla ilgili birkaç örneğe göz atalım..
+
+```
+func main() {
+	if x := 100; x == 100 {
+		fmt.Println("Hello")
+	}
+
+	if y := 22; y < 23 {
+		fmt.Println("World")
+	}
+
+	switch today := time.Now(); {
+	case today.Hour() <= 12:
+		fmt.Println("Apple.")
+	case today.Hour() <= 24:
+		fmt.Println("Orange")
+	default:
+		fmt.Println(today.Hour())
+	}
+}
+```
+
+Çıktı:
+```
+Hello
+World
+Orange
+```
