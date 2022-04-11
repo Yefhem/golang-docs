@@ -8,3 +8,4 @@
 - [Sabitler](./topics/05-Constants.md)
 - [Operatörler](./topics/06-Operators.md)
 - [Koşullu İfadeler](./topics/07-conditional-statements.md)
+- [For Döngüsü](./topics/08-for-loop.md)
