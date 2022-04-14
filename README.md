@@ -9,3 +9,4 @@
 - [Operatörler](./topics/06-Operators.md)
 - [Koşullu İfadeler](./topics/07-conditional-statements.md)
 - [For Döngüsü](./topics/08-for-loop.md)
+- [Fonksiyonlar](./topics)
