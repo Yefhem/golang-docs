@@ -1,32 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func main() {
-	fruits := [3]string{"orange", "banana", "apple"}
+	mySlice1 := []int{2, 5, 3, 7, 1, 9}
+	mySlice2 := []string{"b", "a", "d", "c", "g", "e"}
 
-	fruits2 := fruits
+	fmt.Println("Before Slice 1 :", mySlice1)
+	fmt.Println("Before Slice 2 :", mySlice2)
 
-	fmt.Printf("Fruits : %v\n", fruits)
-	fmt.Printf("Fruits2 : %v\n", fruits2)
-
-	fruits[0] = "watermelon"
-
-	fmt.Printf("Fruits : %v\n", fruits)
-	fmt.Printf("Fruits2 : %v\n", fruits2)
+	// sorting
+	sort.Ints(mySlice1)
+	sort.Strings(mySlice2)
 
 	fmt.Println()
 
-	numbers := [5]int{10, 20, 30, 40, 50}
-
-	// Elemanlar referans olarak iletiliyor
-	numbers2 := &numbers
-
-	fmt.Printf("Fruits : %v\n", numbers)
-	fmt.Printf("Fruits2 : %v\n", *numbers2)
-
-	numbers[3] = 700
-
-	fmt.Printf("Fruits : %v\n", numbers)
-	fmt.Printf("Fruits2 : %v\n", *numbers2)
+	fmt.Println("After Slice 1 :", mySlice1)
+	fmt.Println("After Slice 2 :", mySlice2)
 }
