@@ -197,3 +197,49 @@ true
 false
 false
 ```
+
+* Go'da bir diziyi başka bir diziye kopyalama işlemini iki farklı yöntem ile yapabiliriz. Birinci olarak değere göre dizinin kopyasını oluşturabiliriz.
+İkinci olarak referans ile dizinin kopyasını oluşturabiliriz. Aşağıdaki örneklerde iki farklı kopyalama işlemini de inceleyelim.
+
+```
+func main() {
+	fruits := [3]string{"orange", "banana", "apple"}
+
+	fruits2 := fruits
+
+	fmt.Printf("Fruits : %v\n", fruits)
+	fmt.Printf("Fruits2 : %v\n", fruits2)
+
+	fruits[0] = "watermelon"
+
+	fmt.Printf("Fruits : %v\n", fruits)
+	fmt.Printf("Fruits2 : %v\n", fruits2)
+
+	fmt.Println()
+
+	numbers := [5]int{10, 20, 30, 40, 50}
+
+	numbers2 := &numbers
+
+	fmt.Printf("Fruits : %v\n", numbers)
+	fmt.Printf("Fruits2 : %v\n", *numbers2)
+
+	numbers[3] = 700
+
+	fmt.Printf("Fruits : %v\n", numbers)
+	fmt.Printf("Fruits2 : %v\n", *numbers2)
+}
+```
+
+Çıktı:
+```
+Fruits : [orange banana apple]
+Fruits2 : [orange banana apple]   
+Fruits : [watermelon banana apple]
+Fruits2 : [orange banana apple]   
+                                  
+Fruits : [10 20 30 40 50]
+Fruits2 : [10 20 30 40 50]        
+Fruits : [10 20 30 700 50]        
+Fruits2 : [10 20 30 700 50]  
+```

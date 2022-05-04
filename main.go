@@ -3,16 +3,30 @@ package main
 import "fmt"
 
 func main() {
-	var arr1 = [...]string{"1", "2", "3"}
-	var arr2 = [3]string{"1", "2", "3"}
-	var arr3 = [3]string{"1", "2", "6"}
-	// var arr4 = [3]int{1, 2, 3}
+	fruits := [3]string{"orange", "banana", "apple"}
 
-	fmt.Println(arr1 == arr2)
-	fmt.Println(arr1 == arr3)
-	fmt.Println(arr2 == arr3)
+	fruits2 := fruits
 
-	/* Böyle bir durumda hata alırız.
-	 *	fmt.Println(arr3==arr4)
-	 */
+	fmt.Printf("Fruits : %v\n", fruits)
+	fmt.Printf("Fruits2 : %v\n", fruits2)
+
+	fruits[0] = "watermelon"
+
+	fmt.Printf("Fruits : %v\n", fruits)
+	fmt.Printf("Fruits2 : %v\n", fruits2)
+
+	fmt.Println()
+
+	numbers := [5]int{10, 20, 30, 40, 50}
+
+	// Elemanlar referans olarak iletiliyor
+	numbers2 := &numbers
+
+	fmt.Printf("Fruits : %v\n", numbers)
+	fmt.Printf("Fruits2 : %v\n", *numbers2)
+
+	numbers[3] = 700
+
+	fmt.Printf("Fruits : %v\n", numbers)
+	fmt.Printf("Fruits2 : %v\n", *numbers2)
 }
