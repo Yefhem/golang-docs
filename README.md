@@ -11,4 +11,5 @@
 - [For Döngüsü](./topics/08-for-loop.md)
 - [Fonksiyonlar](./topics/09-function.md)
 - [Diziler](./topics/10-Array.md)
-- [Slice](./topics/11-Slice.md)
+- [Slices](./topics/11-Slice.md)
+- [Maps](./topics/12-Map.md)
