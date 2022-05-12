@@ -1,18 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	var myMap = map[string]string{
-		"a": "black",
-		"b": "blue",
-		"c": "orange",
-		"d": "purple",
-		"e": "red",
-		"f": "yellow",
-	}
+	colors := []string{"red", "blue", "orange", "pink", "purple"}
 
-	for i, v := range myMap {
-		fmt.Println(i, v)
-	}
+	firstChannel := make(chan string)
+
+	go func(arr []string) {
+		for _, color := range arr {
+			firstChannel <- color // Kanala veriyi gönderiyoruz.
+			time.Sleep(time.Second)
+		}
+	}(colors)
+
+	go func() {
+		for i := 0; i < 5; i++ {
+			data := <-firstChannel // Kanaldan alınan veri data değişkenine atanıyor.
+			fmt.Println(data)
+		}
+	}()
+	<-time.After(time.Second * 7)
 }

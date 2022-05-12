@@ -13,3 +13,4 @@
 - [Diziler](./topics/10-Array.md)
 - [Slices](./topics/11-Slice.md)
 - [Maps](./topics/12-Map.md)
+- [Concurrency](./topics/13-Concurrency.md)
