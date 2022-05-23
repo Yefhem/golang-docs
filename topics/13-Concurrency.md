@@ -185,4 +185,218 @@ Hatta en büyük go routine desek yanlış olmaz. Main fonksiyonu tamamlandığ�
 
 main go routine'imizi bekletmek için bir channel oluşturup 7 saniye sonra veri gönderilmesini sağladık bir diğer şekilde 7 saniye beklettik.
 
+**Done Channel Nedir?**
+
+Done channel(tamamlandı kanalı) program bitene kadar main go routine'ni bekletmenin uygun yollarından biridir.
+Projenin başında bir done channel tanımlanır ve işlemlerimiz tamamlandığında bu kanala veri göndeririz. 
+Bu channel main fonksiyonu okuyacak şekilde yerleştirilirse biz tamamlandı komutu veresiye kadar main fonksiyonu/go routine'i çalışmaya devam edecektir.
+
+
+```
+func main() {
+	doneChan := make(chan string)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println("hey ", i)
+			time.Sleep(time.Second)
+		}
+		doneChan <- "done.."
+	}()
+	<-doneChan
+}
+```
+
+Çıktı:
+```
+hey  0
+hey  1
+hey  2
+hey  3
+hey  4
+hey  5
+hey  6
+hey  7
+hey  8
+hey  9
+```
+
+Burada go routine içerisindeki for döngüsü tamamlandıktan sonra main go routine'e bir veri göndererek işimizin bittiğini belirtiyoruz.
+
+**Sender, Receiver ve Direction**
+
+Bir kanala veri gönderip alma işlemini kolaylaştırmak için bu tip fonksiyonlar kullanabiliriz. Bu oluşturduğumuz fonksiyonlarda tek bir işi yapmaya zorlamış oluruz yani sadece alıcı veya verici olması garanti edilir. Burada kanallar fonksiyon parametresi olarak kullanılır.
+
+Bununla birlikte aşağıda göreceğiniz direction fonksiyonu gibi tek işi bir kanaldaki veriyi alıp başka bir kanala aktaran fonksiyonlar da yazabiliriz.
+
+```
+func main() {
+	firstChan := make(chan string, 1)
+
+	sender(firstChan, "data")
+
+	message := receiver(firstChan)
+
+	fmt.Println(message)
+}
+
+func sender(channel chan<- string, message string) {
+	channel <- message
+}
+
+func receiver(channel <-chan string) string {
+	message := <-channel 
+	return message
+}
+```
+
+Çıktı:
+```
+data
+```
+
+> Burada sender fonksiyonunun yaptığı tek iş mesajı kanala göndermektir.
+
+> Receiver fonksiyonunun yaptığı tek iş kanaldaki veriyi almaktır. 
+
+```
+func main() {
+	firstChan := make(chan string, 1)
+	secondChan := make(chan string, 1)
+
+	sender(firstChan, "hello world")
+
+	direction(firstChan, secondChan)
+
+	fmt.Println(<-secondChan)
+}
+
+func sender(channel chan<- string, message string) {
+	channel <- message 
+}
+
+func direction(receiver <-chan string, sender chan<- string) {
+	message := <-receiver 
+	sender <- message  
+}
+```
+
+Çıktı:
+```
+hello world
+```
+
+> Direction fonksiyonunun yaptığı tek iş ise bir kanaldaki veriyi alıp başka bir kanala aktarmaktır.
+
+> Biraz daha detaya inersek firstChan kanalına sender fonksiyonu ile "hello world" stringi aktarıldı. Direction fonksiyonunda firstChan kanalındaki veri message değişkenine atandı. 
+Message değişkeni içerisindeki veriyi SecondChan kanalına gönderdik ve kanaldaki veriyi yazdırdık.
+
+**Not:** Eğer direkt olarak `fmt.Println(secondChan)` bu şekilde yazdıracak olsaydık secondChan kanalının adresini elde edecektik.
+
+**Buffered ve Unbuffered Channel**
+
+*Buffered: Kanallarda birden fazla veri tutabilir. Kanal oluştururken buffered veya unbuffered olduğu belirtilir*
+
+> FIFO(first in first out) yaklaşımı burada da geçerlidir. Kanala ilk giren veri okuma tarafında ilk çıkan veridir.
+
+> Kanala veri girişi ve çıkışı esnasında bloklama işlemi gerçekleşir. Unbuffered ile fark yoktur.
+
+> Kanala veri girişi esnasında kanalın tamamı dolu ise yalnızca yeni veri girişi bloklanır. Ve kanal boşsa yalnızca veri çıkışı işlemi bloklanır.
+
+Örnek Buffered Channel Tanımlanması;
+
+`myChannel := make(chan string, 50)`
+
+*Unbuffered: Bu tür kanallar sadece bir adet veri muhafaza edebilir.*
+
+`myChannel := make(chan string, 1)`
+
+```
+func main() {
+	myBufferedChan := make(chan string, 2)
+	go func() {
+		myBufferedChan <- "first"
+		fmt.Println("first sent")
+		myBufferedChan <- "second"
+		fmt.Println("second sent")
+	}()
+	<-time.After(time.Second * 2)
+	go func() {
+		firstRead := <-myBufferedChan
+		fmt.Println("...")
+		fmt.Println(firstRead)
+		secondRead := <-myBufferedChan
+		fmt.Println(secondRead)
+	}()
+	<-time.After(time.Second * 2)
+}
+```
+
+Çıktı:
+```
+first sent
+second sent
+...
+first 
+second
+```
+
+**Deadlock Problemi**
+
+En yaygın hatalardan biri olan deadlock bir channel'a gönderen kadar okuyucu atanmazsa yani kapasiteden fazla veri gönderilirse programımız deadlock problemi ile karşılaşır.
+
+```
+func main() {
+	myBufferedChan := make(chan string, 2)
+
+	myBufferedChan <- "1"
+	myBufferedChan <- "2"
+	myBufferedChan <- "3"
+
+	one := <-myBufferedChan
+	two := <-myBufferedChan
+	three := <-myBufferedChan
+
+	fmt.Println(one, two, three)
+
+	<-time.After(time.Second * 2)
+}
+```
+
+Çıktı: 
+```
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [chan send]:
+main.main()
+        C:/*******/******/go/src/github.com/Yefhem/golang-docs/main.go:13 +0x6a
+exit status 2
+```
+
+Aslında bu problem kanalın kapasitesi ile ilgili bir mesele. Bu gibi durumlarda len() ve cap() fonksiyonları kullanılabilir. 
+
+> Len() : kanal içi mevcut veri miktarını gösterir. 
+
+> Cap() : kanalın ilk tanımlandığı andaki belirtilen maksimum veri miktarını gösterir.
+
+```
+func main() {
+	myChannel := make(chan string, 3)
+
+	myChannel <- "first data"
+	myChannel <- "second data"
+
+	fmt.Println("Capasity: ", cap(myChannel))
+	fmt.Println("Length: ", len(myChannel))
+	fmt.Println("Reading Data: ", <-myChannel)
+	fmt.Println("New Data Length: ", len(myChannel))
+}
+```
+
+Çıktı: 
+```
+Capasity:  3
+Length:  2
+Reading Data:  first data
+New Data Length:  1
+```
 
