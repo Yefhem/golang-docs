@@ -14,3 +14,5 @@
 - [Slices](./topics/11-Slice.md)
 - [Maps](./topics/12-Map.md)
 - [Concurrency](./topics/13-Concurrency.md)
+- [Structure](./topics/14-Structure.md)
+- [Pointers](./topics/15-Pointers.md)
