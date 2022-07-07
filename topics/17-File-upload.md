@@ -78,6 +78,7 @@ if err != nil {
 }
 ```
 
+```
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", indexHandler)
@@ -175,6 +176,7 @@ func uploadHandler(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+```
 
 ## Birden Çok Dosyayı Yükleme
 
