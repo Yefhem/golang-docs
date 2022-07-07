@@ -16,3 +16,5 @@
 - [Concurrency](./topics/13-Concurrency.md)
 - [Structure](./topics/14-Structure.md)
 - [Pointers](./topics/15-Pointers.md)
+- [Method Chaining](./topics/16-Method-chaining.md)
+- [File Upload](./topics/17-File-upload.md)
