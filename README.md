@@ -18,3 +18,4 @@
 - [Pointers](./topics/15-Pointers.md)
 - [Method Chaining](./topics/16-Method-chaining.md)
 - [File Upload](./topics/17-File-upload.md)
+- [map[string]interface{}](./topics/18-map%5Bstring%5Dinterface.md)
