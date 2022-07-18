@@ -2,30 +2,26 @@ package main
 
 import "fmt"
 
-type employee struct {
-	name      string
-	age       int
-	isMarried bool
-}
-
-type manager struct {
-	employee
-	hasDegree bool
-}
-
 func main() {
-	employee := employee{
-		name:      "steve",
-		age:       20,
-		isMarried: true,
+
+	foods := map[string]interface{}{
+		"bacon": "delicious",
+		"eggs": struct {
+			source string
+			price  float64
+		}{"chicken", 1.75},
+		"steak": true,
 	}
 
-	manager := manager{
-		employee:  employee,
-		hasDegree: true,
+	for k, v := range foods {
+		switch c := v.(type) {
+		case string:
+			fmt.Printf("Item %q is a string, containing %q\n", k, c)
+		case float64:
+			fmt.Printf("Looks like item %q is a numberi specifically %f\n", k, c)
+		default:
+			fmt.Printf("Not sure what type item %q is, but I think it might be %T\n", k, c)
+		}
 	}
 
-	fmt.Println(employee)
-	fmt.Println(manager)
-	fmt.Println("s")
 }
